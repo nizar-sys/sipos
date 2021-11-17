@@ -26,10 +26,10 @@
                 <div class="container-fluid mt-4">
                     <div class="row">
                         @foreach ($data['products'] as $produk)
-                            <div class="col-md-3 col-sm-6 mr-2">
+                            <div class="col-sm-6 col-md-3 mr-2">
                                 <div class="product-grid">
                                     <div class="product-image">
-                                        <a href="#" class="image">
+                                        <a onclick="event.preventDefault()" href="#" class="image">
                                             <img class="img-1" alt="{{ $produk->nama_produk }}"
                                                 src="{{ asset('/storage/productImgs/' . $produk->gambar_produk) }}">
                                         </a>

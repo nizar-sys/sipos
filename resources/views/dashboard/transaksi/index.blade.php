@@ -21,7 +21,7 @@ $role = Auth::user()->role == '1' ? 'admin' : 'users';
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-sm-12 col-lg-4">
                                 <div class="card card-stats">
                                     <!-- Card body -->
                                     <div class="card-body">
@@ -42,7 +42,7 @@ $role = Auth::user()->role == '1' ? 'admin' : 'users';
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-sm-12 col-lg-4">
                                 <div class="card card-stats">
                                     <!-- Card body -->
                                     <div class="card-body">
@@ -70,7 +70,7 @@ $role = Auth::user()->role == '1' ? 'admin' : 'users';
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-sm-12 col-lg-4">
                                 <div class="card card-stats">
                                     <!-- Card body -->
                                     <div class="card-body">
