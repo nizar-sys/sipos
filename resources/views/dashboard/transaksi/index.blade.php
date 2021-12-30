@@ -166,7 +166,7 @@ $role = Auth::user()->role == '1' ? 'admin' : 'users';
                                             <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow text-center">
                                                 @if ($status == 'dibayar')
                                                     <form id="form-cancel-trx"
-                                                        action="{{ route('transaction.cancel', ['trxID' => base64_encode($trx->detail_transaksi)]) }}"
+                                                        action="/transactions/{{base64_encode($trx->detail_transaksi)}}"
                                                         method="post">
 
                                                         @csrf
