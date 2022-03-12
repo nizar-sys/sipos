@@ -76,13 +76,17 @@ class RouteContoller extends Controller
         }
     }
 
-    public function productList()
+    public function productList(Request $request)
     {
         try {
 
             $data = [
                 'products' => Produk::latest()->paginate(10),
             ];
+
+            if($request->has('produk')){
+                $data['products'] = Produk::where('slug_produk', 'LIKE', '%'.$request->produk.'%')->paginate(10);
+            }
 
             if (Auth::user()->role == '0') {
                 return view('dashboard.products.index', compact('data')); // view user

@@ -9,6 +9,25 @@
                 Produk</a></li>
     </ol>
 @endsection
+
+@section('search')
+<form class="navbar-search navbar-search-light form-inline mr-sm-3" onsubmit="event.preventDefault(); searchProduk($('#search-field'))" id="navbar-search-main">
+    <div class="form-group mb-0">
+        <div class="input-group input-group-alternative input-group-merge">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-search"></i></span>
+            </div>
+            <input class="form-control" placeholder="Search Produk"
+                type="text" id="search-field">
+        </div>
+    </div>
+    <button type="button" class="close" data-action="search-close"
+        data-target="#navbar-search-main" aria-label="Close">
+        <span aria-hidden="true">×</span>
+    </button>
+</form>
+@endsection
+
 @section('action_btn')
     <a href="{{ route('product.create') }}" class="btn btn-sm btn-neutral">New product</a>
 
@@ -183,5 +202,15 @@
         @if($errors->any())
             $('#modalUpdateProduk').modal('show')
         @endif
+
+        function searchProduk(e)
+        {
+            if(e.val() != ''){
+                eval = e.val().replace(/\s+/g, '-');
+                window.location.href = "?produk=" + eval
+            } else {
+                window.location.href = '?';
+            }
+        }
     </script>
 @endsection
