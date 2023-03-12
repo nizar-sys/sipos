@@ -21,22 +21,20 @@ class UserSeeder extends Seeder
                 'username' => 'admin',
                 'slug' => Str::slug('admin'),
                 'role' => '1',
-                'email' => 'admin@gmail.com',
-                'password' => Hash::make('123'),
+                'email' => 'admin@mail.com',
+                'password' => Hash::make('password'),
                 'remember_token' => Str::random(100),
             ],
             [
                 'username' => 'users',
                 'slug' => Str::slug('users'),
                 'role' => '0',
-                'email' => 'users@gmail.com',
-                'password' => Hash::make('123'),
+                'email' => 'users@mail.com',
+                'password' => Hash::make('password'),
                 'remember_token' => Str::random(100),
             ],
         ];
 
-        foreach ($data as $key => $value) {
-            User::create($value);
-        }
+        User::insert($data);
     }
 }

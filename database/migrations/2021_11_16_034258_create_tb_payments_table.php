@@ -16,7 +16,7 @@ class CreateTbPaymentsTable extends Migration
         Schema::create('tb_payments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('trx_code')->nullable();
-            $table->foreign('trx_code')->references('detail_transaksi')->on('tb_transactions')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('trx_code')->references('id')->on('tb_transactions')->onUpdate('cascade')->onDelete('cascade');
             $table->bigInteger('change_payment');
             $table->bigInteger('total_payment');
             $table->string('proof_payment');

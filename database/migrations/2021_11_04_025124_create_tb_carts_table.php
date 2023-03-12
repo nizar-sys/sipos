@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Transaksi;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -22,6 +23,8 @@ class CreateTbCartsTable extends Migration
             $table->bigInteger('qty');
             $table->enum('status', ['oncart', 'ordered']);
             $table->bigInteger('subtotal');
+            $table->unsignedBigInteger('transaksi_id')->nullable();
+            $table->foreign('transaksi_id')->references('id')->on('tb_transactions')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

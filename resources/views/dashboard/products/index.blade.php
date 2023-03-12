@@ -30,8 +30,9 @@
                                 <div class="product-grid">
                                     <div class="product-image">
                                         <a onclick="event.preventDefault()" href="#" class="image">
-                                            <img class="img-1" alt="{{ $produk->nama_produk }}"
-                                                src="{{ asset('/storage/productImgs/' . $produk->gambar_produk) }}">
+                                            {{-- panggil file produk yang ada di folder storage/app/public/productImgs --}}
+                                            <img class="pic-1"
+                                                src="{{ asset('storage/productImgs/' . $produk->gambar_produk) }}">
                                         </a>
                                         <ul class="product-links">
                                             <li><a href="#"
@@ -82,7 +83,7 @@
             <div class="card">
                 <div class="card mb-3">
                     <div class="card-body" id="load-total-cart">
-                    
+
 
                     </div>
                 </div>

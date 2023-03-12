@@ -46,7 +46,7 @@ class LoginSocialiteController extends Controller
                 'email'    => $user->email,
                 'provider' => $provider,
                 'provider_id' => $user->id,
-                'password' => Hash::make('SIPOS-1992'),
+                'password' => Hash::make('password'),
                 'remember_token' => Str::random(100),
             ]);
         } catch (\Throwable $th) {

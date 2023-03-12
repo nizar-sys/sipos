@@ -8,11 +8,9 @@ use App\Models\ActivityLog;
 use App\Models\Cart;
 use App\Models\Produk;
 use App\Models\Transaksi;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class RouteContoller extends Controller
 {
@@ -175,7 +173,7 @@ class RouteContoller extends Controller
 
             $data['transactions'] = $transaksi->where('detail_transaksi', $codeTransaksi)->first();
 
-            
+
             return view('dashboard.data.transaksi.detail', compact('data'));
         } catch (\Throwable $th) {
             if (request()->ajax()) {
@@ -194,7 +192,7 @@ class RouteContoller extends Controller
 
             $data['transactions'] = $transaksi->where('detail_transaksi', $codeTransaksi)->first();
 
-            
+
             return view('dashboard.receipts.transaksi', compact('data'));
         } catch (\Throwable $th) {
             if (request()->ajax()) {

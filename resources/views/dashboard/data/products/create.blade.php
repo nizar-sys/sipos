@@ -26,7 +26,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-basket"></i></span>
                                 </div>
-                                <input class="form-control" name="kode_produk" placeholder="Kode Produk" type="text"
+                                <input class="form-control" name="kode_produk" placeholder="Kode Produk" type="number"
                                     value="{{ old('kode_produk') }}">
                             </div>
                             @error('kode_produk')
@@ -65,7 +65,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-basket"></i></span>
                                 </div>
-                                <input class="form-control" name="harga_produk" placeholder="Harga Produk" type="text"
+                                <input class="form-control" name="harga_produk" placeholder="Harga Produk" type="number"
                                     value="{{ old('harga_produk') }}">
                             </div>
                             @error('harga_produk')
@@ -78,7 +78,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-basket"></i></span>
                                 </div>
-                                <input class="form-control" name="diskon_produk" placeholder="Diskon Produk" type="text"
+                                <input class="form-control" name="diskon_produk" placeholder="Diskon Produk" type="number"
                                     value="{{ old('diskon_produk') }}">
                             </div>
                             @error('diskon_produk')
@@ -91,7 +91,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-app"></i></span>
                                 </div>
-                                <input class="form-control" name="stok_produk" placeholder="Stok Produk" type="text"
+                                <input class="form-control" name="stok_produk" placeholder="Stok Produk" type="number"
                                     value="{{ old('stok_produk') }}">
                             </div>
                             @error('stok_produk')

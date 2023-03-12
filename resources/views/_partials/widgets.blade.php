@@ -31,7 +31,7 @@ $widgets = [
 @endphp
 @foreach ($widgets as $widget)
     @if ($widget != null)
-        <div class="col-xl-3 col-md-6">
+        <div class="col-xl-3 col-md-6 col-sm-12">
             <a class="card card-stats" href="{{ $widget['url'] }}">
                 <!-- Card body -->
                 <div class="card-body">
