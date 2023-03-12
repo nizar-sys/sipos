@@ -64,8 +64,8 @@
                     </ul>
                         <input type="hidden" multiple id="cartsIdField" value="${getCartsId(carts)}">
                         <input type="hidden" id="totalTax" value="${convertRp(total)}">
-                        <button onclick="checkout()" type="button"
-                            class="btn btn-primary btn-block waves-effect waves-light">Checkout</button>
+                        <button onclick="checkout()"
+                            class="btn btn-primary btn-block waves-effect waves-light" id="btn-checkout">Checkout</button>
                         `)
     }
 
@@ -185,11 +185,14 @@
             var cartsId = $('input[id="cartsIdField"]')
             var totaltax = $('input[id="totalTax"]')
 
+            if($('#totalTax').val() == 0) return toastr.error('Keranjang masih kosong')
+
             var url = '/checkout-cart';
             var data = {
                 _token: "{{ csrf_token() }}",
                 cartsId: cartsId.val(),
                 total_transaksi: totaltax.val().split('.').join(''),
+                code_transaksi: Math.floor(Math.random() * 1000000000)
             }
 
             toastr.info('Loading ...')

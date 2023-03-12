@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', 'SIPOS | Data Transaksi')
 @php
-$role = Auth::user()->role == '1' ? 'admin' : 'users';
+    $role = Auth::user()->role == '1' ? 'admin' : 'users';
 @endphp
 @section('breadcrumb')
     <ol class="breadcrumb breadcrumb-links breadcrumb-dark mt-4">
@@ -53,7 +53,7 @@ $role = Auth::user()->role == '1' ? 'admin' : 'users';
                                                     {{ __('Jumlah Transaksi Yang Harus Dibayar') }}</h5>
                                                 @php
                                                     $total = 0;
-                                                    foreach ($data['transactions']->where('status_transaksi', '!=', 'dibayar') as $trx) {
+                                                    foreach ($data['transactions']->where('status_transaksi', 'menunggu pembayaran') as $trx) {
                                                         $total += $trx->total_transaksi;
                                                     }
                                                 @endphp
@@ -81,7 +81,7 @@ $role = Auth::user()->role == '1' ? 'admin' : 'users';
                                                     {{ __('Jumlah Transaksi Yang Berhasil Dibayar') }}</h5>
                                                 @php
                                                     $total = 0;
-                                                    foreach ($data['transactions']->where('status_transaksi', 'dibayar') as $trx) {
+                                                    foreach ($data['transactions']->whereIn('status_transaksi', ['dibayar', 'berhasil']) as $trx) {
                                                         $total += $trx->total_transaksi;
                                                     }
                                                 @endphp
@@ -146,39 +146,51 @@ $role = Auth::user()->role == '1' ? 'admin' : 'users';
                                             }
                                         @endphp
                                         <td>
-                                            <span @if ($status == 'menunggu pembayaran')
-                                                style="cursor: pointer"
+                                            <span
+                                                @if ($status == 'menunggu pembayaran') style="cursor: pointer"
                                                 onclick="payment({{ $trx->detail_transaksi }},
-                                                {{ $trx->total_transaksi }})"
-                                @endif
-                                class="badge badge-pill badge-{{ $bgBanner }} badge-lg">{{ __($status) }}</span>
-                                </td>
-                                @if ($status != 'menunggu pembayaran')
-                                    <td class="d-flex justify-content-center">
-                                        <a href="{{ route('transaction.receipt', ['role' => $role, 'trxID' => base64_encode($trx->detail_transaksi)]) }}"
-                                            target="_blank" class="btn btn-sm"><i class="fas fa-file-invoice"></i></a>
+                                                {{ $trx->total_transaksi }})" @endif
+                                                class="badge badge-pill badge-{{ $bgBanner }} badge-lg">{{ __($status) }}</span>
+                                        </td>
+                                        @if ($status != 'menunggu pembayaran')
+                                            <td class="d-flex justify-content-center">
+                                                <a href="{{ route('transaction.receipt', ['role' => $role, 'trxID' => base64_encode($trx->detail_transaksi)]) }}"
+                                                    target="_blank" class="btn btn-sm"><i
+                                                        class="fas fa-file-invoice"></i></a>
 
-                                        <div class="dropdown">
-                                            <a class="btn btn-sm btn-icon-only text-light" href="#" role="button"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="fas fa-ellipsis-v"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow text-center">
-                                                @if ($status == 'dibayar')
-                                                    <form id="form-cancel-trx"
-                                                        action="/transactions/{{base64_encode($trx->detail_transaksi)}}"
-                                                        method="post">
+                                                <div class="dropdown">
+                                                    <a class="btn btn-sm btn-icon-only text-light" href="#"
+                                                        role="button" data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </a>
+                                                    <div
+                                                        class="dropdown-menu dropdown-menu-right dropdown-menu-arrow text-center">
+                                                        @if ($status == 'dibayar')
+                                                            <form id="form-cancel-trx"
+                                                                action="/transactions/cancel/{{ base64_encode($trx->detail_transaksi) }}"
+                                                                method="post">
 
-                                                        @csrf
-                                                    </form>
-                                                    <a onclick="event.preventDefault(); $('#form-cancel-trx').submit()"
-                                                        class="dropdown-item text-danger" href="#">Batalkan Transaksi</a>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    </td>
-                                @endif
-                                </tr>
+                                                                @csrf
+                                                            </form>
+                                                            <a onclick="event.preventDefault(); $('#form-cancel-trx').submit()"
+                                                                class="dropdown-item text-danger" href="#">Batalkan
+                                                                Transaksi</a>
+                                                            <form id="form-success-trx"
+                                                                action="/transactions/success/{{ base64_encode($trx->detail_transaksi) }}"
+                                                                method="post">
+
+                                                                @csrf
+                                                            </form>
+                                                            <a onclick="event.preventDefault(); $('#form-success-trx').submit()"
+                                                                class="dropdown-item text-success" href="#">Konfirmasi
+                                                                Transaksi</a>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        @endif
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>

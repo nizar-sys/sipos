@@ -79,7 +79,7 @@
                                                     {{ __('Total Pendapatan Bersih') }}</h5>
                                                 @php
                                                     $total = 0;
-                                                    foreach ($data['transactions']->where('status_transaksi', 'dibayar') as $trx) {
+                                                    foreach ($data['transactions']->whereIn('status_transaksi', ['dibayar', 'berhasil']) as $trx) {
                                                         $total += $trx->total_transaksi;
                                                     }
                                                 @endphp

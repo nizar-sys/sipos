@@ -20,14 +20,15 @@ class TransaksiController extends Controller
         try {
             $validated = $request->validated();
 
-            $transaksi = Transaksi::all()->where('detail_transaksi', $validated['trx_code'])->first();
+            $transaksi = Transaksi::where('detail_transaksi', $validated['trx_code'])->first();
 
 
             $imageName = 'transfer-' . time() . '.' . $validated['bukti_tf']->extension();
-            $validated['bukti_tf']->move(storage_path('app/public/fileUploads'), $imageName);
+
+            $uploadImage = $validated['bukti_tf']->move(public_path('storage/fileUploads'), $imageName);
 
             $newPayment = Payment::create([
-                'trx_code' => $validated['trx_code'],
+                'trx_code' => $transaksi->id,
                 'change_payment' => (int)implode('', explode('.', $request->change_pay)),
                 'total_payment' => (int)implode('', explode('.', $request->total_pay)),
                 'proof_payment' => $imageName,
@@ -71,18 +72,21 @@ class TransaksiController extends Controller
 
             $trxID = base64_decode($trxID);
 
-            $data['transactions'] = Transaksi::all()->where('detail_transaksi', $trxID)->first();
+            $data['transactions'] = Transaksi::where('detail_transaksi', $trxID)->first();
 
+            // update qty product to old qty
             $carts = $data['transactions']->carts()->get();
             foreach ($carts as $cart) {
-                $product = $cart->product->get()->first();
+                $product = $cart->product->first();
                 $product->update([
                     'stok_produk' => $product->stok_produk + $cart->qty,
                 ]);
             }
-            $data['transactions']->payment()->delete();
-            $data['transactions']->carts()->delete();
+
+
             $data['transactions']->delete();
+
+
             if (request()->ajax()) {
                 return $this->success(null, 'Transaksi berhasil dibatalkan');
             }

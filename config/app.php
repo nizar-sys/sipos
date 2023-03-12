@@ -52,9 +52,9 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://sipos.herokuapp.com'),
+    'url' => env('APP_URL'),
 
-    'asset_url' => env('ASSET_URL', 'https://sipos.herokuapp.com'),
+    'asset_url' => env('ASSET_URL'),
 
     /*
     |--------------------------------------------------------------------------

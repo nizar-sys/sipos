@@ -15,7 +15,7 @@ class CreateTbTransactionsTable extends Migration
     {
         Schema::create('tb_transactions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('detail_transaksi');
+            $table->bigInteger('detail_transaksi', false, true);
             $table->bigInteger('total_transaksi');
             $table->string('status_transaksi');
             $table->date('tanggal_transaksi');

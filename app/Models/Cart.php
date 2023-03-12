@@ -16,8 +16,7 @@ class Cart extends Model
     protected $appends = [
         'product'
     ];
-    
-    
+
     public function product()
     {
         return $this->belongsTo(Produk::class, 'product_id', 'id');

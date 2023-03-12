@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-6">
+            <div class="col-md-6 col-sm-12">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Detil Pesanan</h3>
@@ -102,7 +102,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-md-6 col-sm-12">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Detil Pelanggan</h3>
@@ -188,50 +188,52 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">{{ __('Sejarah Pembayaran') }}</h3>
-                    </div>
-                    <div class="card-body">
-                        <!-- Light table -->
-                        <div class="table-responsive">
-                            <table class="table align-items-center table-flush">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th scope="col" class="sort" data-sort="budget">Waktu Pembayaran</th>
-                                        <th scope="col" class="sort" data-sort="kategori">Bukti Pembayaran</th>
-                                        <th scope="col" class="sort" data-sort="create at">Jumlah Pembayaran</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @php
-                                        $payment = $data['transactions']->payment;
-                                    @endphp
-                                    <tr>
-                                        <td>{{ $payment->created_at }}</td>
-                                        <td>
-                                            <div class="avatar-group">
-                                                <span style="cursor: pointer" class="avatar rounded-circle"
-                                                    data-toggle="tooltip"
-                                                    data-original-title="{{ Str::title('Bukti Pembayaran ' . $payment->trx_code) }}">
-                                                    <img onclick="detailImage(this)"
-                                                        alt="{{ 'Bukti Pembayaran ' . $payment->trx_code }}"
-                                                        src="{{ asset('/storage/fileUploads/' . $payment->proof_payment) }}"
-                                                        id="{{ $payment->trx_code }}">
-                                                </span>
-                                            </div>
-                                        </td>
-                                        <td>Rp.{{ number_format($payment->total_payment, 0, ',', '.') }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+        @if ($data['transactions']->payment)
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">{{ __('Sejarah Pembayaran') }}</h3>
+                        </div>
+                        <div class="card-body">
+                            <!-- Light table -->
+                            <div class="table-responsive">
+                                <table class="table align-items-center table-flush">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col" class="sort" data-sort="budget">Waktu Pembayaran</th>
+                                            <th scope="col" class="sort" data-sort="kategori">Bukti Pembayaran</th>
+                                            <th scope="col" class="sort" data-sort="create at">Jumlah Pembayaran</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                            $payment = $data['transactions']->payment;
+                                        @endphp
+                                        <tr>
+                                            <td>{{ $payment->created_at }}</td>
+                                            <td>
+                                                <div class="avatar-group">
+                                                    <span style="cursor: pointer" class="avatar rounded-circle"
+                                                        data-toggle="tooltip"
+                                                        data-original-title="{{ Str::title('Bukti Pembayaran ' . $payment->trx_code) }}">
+                                                        <img onclick="detailImage(this)"
+                                                            alt="{{ 'Bukti Pembayaran ' . $payment->trx_code }}"
+                                                            src="{{ asset('/storage/fileUploads/' . $payment->proof_payment) }}"
+                                                            id="{{ $payment->trx_code }}">
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td>Rp.{{ number_format($payment->total_payment, 0, ',', '.') }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
 @endsection
 

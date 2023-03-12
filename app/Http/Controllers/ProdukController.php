@@ -59,7 +59,7 @@ class ProdukController extends Controller
 
             $imageProduk = explode('.', $validated['gambar_produk']->getClientOriginalName())[0] . '-' . time() . '.' . $validated['gambar_produk']->extension();
 
-            $uploadImage = $validated['gambar_produk']->move(storage_path('app/public/productImgs'), $imageProduk);
+            $uploadImage = $validated['gambar_produk']->move(public_path('storage/productImgs'), $imageProduk);
 
             if (!$uploadImage) {
                 if ($request->ajax()) {

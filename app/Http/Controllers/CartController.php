@@ -24,7 +24,7 @@ class CartController extends Controller
                 ->where('user_id', $user->id)
                 ->where('product_id', $request->id_produk)
                 ->where('status', 'oncart');
-            $product = Produk::all()->where('id', $request->id_produk)->first();
+            $product = Produk::where('id', $request->id_produk)->first();
             $msg = '';
 
             if ($cart->isEmpty()) {
@@ -136,7 +136,7 @@ class CartController extends Controller
 
             $newTransaction = Transaksi::create([
                 'user_detail' => Auth::user()->id,
-                'detail_transaksi' => rand(100000, 999999),
+                'detail_transaksi' => $request->code_transaksi,
                 'total_transaksi' => $request->total_transaksi,
                 'status_transaksi' => 'menunggu pembayaran',
                 'tanggal_transaksi' => date('Y-m-d')
@@ -151,7 +151,7 @@ class CartController extends Controller
 
             $data['carts']->update([
                 'status' => 'ordered',
-                'code_transaksi' => $newTransaction['detail_transaksi'],
+                'transaksi_id' => $newTransaction->id,
                 'updated_at' => date(now())
             ]);
 
@@ -180,7 +180,7 @@ class CartController extends Controller
 
         // Enable 3D-Secure
         Config::$is3ds = true;
-        
+
         // Required
 
          $item_list[] = [

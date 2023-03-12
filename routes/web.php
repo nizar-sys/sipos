@@ -65,7 +65,7 @@ Route::middleware('auth')->group(function () {
         try {
             //code...
             $request->user()->sendEmailVerificationNotification();
-            
+
             if ($request->ajax()) {
                 return response()->json([
                     'message' => 'Success Verification link sent!'
@@ -147,9 +147,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/{role}/transaction/{id}', [RouteContoller::class, 'transactionDetail'])->name('transaction.detail');
     Route::post('/pay-transaction', [TransaksiController::class, 'payTransaction'])->name('transaction.pay');
     Route::get('/{role}/receipt/{trxID}', [RouteContoller::class, 'receiptTrx'])->name('transaction.receipt');
-    Route::post('/transactions/{trxID}', [TransaksiController::class, 'cancelTransaction'])->name('transaction.cancel');
-    Route::post('/transactions/{trxID}', [TransaksiController::class, 'successTransaction'])->name('transaction.success');
-    
+    Route::post('/transactions/success/{trxID}', [TransaksiController::class, 'successTransaction'])->name('transaction.success');
+    Route::post('/transactions/cancel/{trxID}', [TransaksiController::class, 'cancelTransaction'])->name('transaction.cancel');
+
     // mail
     Route::get('/mail-receipt/{trxID}/{email}', [MailController::class, 'sendReceipt'])->name('mail.receipt');
 

@@ -20,7 +20,7 @@ class Transaksi extends Model
 
     public function carts()
     {
-        return $this->hasMany(Cart::class, 'code_transaksi', 'detail_transaksi');
+        return $this->hasMany(Cart::class, 'transaksi_id', 'id');
     }
 
     public function user()
@@ -30,6 +30,6 @@ class Transaksi extends Model
 
     public function payment()
     {
-        return $this->belongsTo(Payment::class, 'detail_transaksi', 'trx_code');
+        return $this->hasOne(Payment::class, 'trx_code', 'id');
     }
 }
